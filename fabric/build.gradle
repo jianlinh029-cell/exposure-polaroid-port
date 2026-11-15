@@ -1,0 +1,58 @@
+plugins {
+    id "com.gradleup.shadow"
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    // 26.1 loom-no-remap: nothing is remapped, but architectury still creates the
+    // transformProductionFabric task/configuration. It runs TransformExpectPlatform, which
+    // rewires common's @ExpectPlatform methods to the fabric *Impl classes. The production
+    // shadow jar must bundle that transformed common jar.
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+}
+
+repositories {
+    maven { url = "https://api.modrinth.com/maven" }
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    } // Forge Config API Port
+}
+
+dependencies {
+    implementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+
+    implementation("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_api_port_version}")
+    implementation("io.github.mortuusars.exposure:exposure-${minecraft_version}-fabric:${exposure_version}") { transitive = false }
+
+    implementation(project(":common"))
+    shadowBundle(project(path: ":common", configuration: "transformProductionFabric")) { transitive = false }
+}
+
+// 26.1 loom-no-remap: no remapJar task exists. The shadow jar (fabric classes +
+// architectury-transformed common classes, already official-named) is the production artifact.
+tasks.named('jar') {
+    archiveClassifier = 'dev'
+}
+
+shadowJar {
+    exclude("architectury.common.json")
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = ''
+}
+
+tasks.named('assemble') {
+    dependsOn shadowJar
+}

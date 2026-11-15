@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "exposure_polaroid:item/instant_color_slide"
+  }
+}

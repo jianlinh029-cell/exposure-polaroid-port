@@ -1,0 +1,116 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera",
+        "tints": [
+          {
+            "type": "minecraft:constant",
+            "value": -1
+          },
+          {
+            "type": "exposure_polaroid:glass_tint"
+          }
+        ]
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_active"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_bw"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_bw_print1"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_bw_print2"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_bw_print3"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_color"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_active_bw"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_active_bw_print1"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_active_bw_print2"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_active_bw_print3"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_active_color"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_color_print1"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_color_print2"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_color_print3"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_active_color_print1"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_active_color_print2"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_active_color_print3"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/selfie_stick"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_selfie"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_selfie_bw"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_selfie_color"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:instant_camera_gui"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_gui_bw"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "exposure_polaroid:item/instant_camera_gui_color"
+      }
+    ]
+  }
+}

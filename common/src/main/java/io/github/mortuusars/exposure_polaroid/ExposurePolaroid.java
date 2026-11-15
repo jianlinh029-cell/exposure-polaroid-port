@@ -1,0 +1,194 @@
+package io.github.mortuusars.exposure_polaroid;
+
+import com.google.common.base.Preconditions;
+import com.mojang.logging.LogUtils;
+import io.github.mortuusars.exposure.Exposure;
+import io.github.mortuusars.exposure.world.camera.ExposureType;
+import io.github.mortuusars.exposure.world.camera.film.properties.*;
+import io.github.mortuusars.exposure_polaroid.world.item.InstantCameraItem;
+import io.github.mortuusars.exposure_polaroid.world.item.InstantSlideItem;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.stats.StatFormatter;
+import net.minecraft.world.item.Item;
+import org.slf4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
+
+public class ExposurePolaroid {
+    public static final String ID = "exposure_polaroid";
+    public static final Logger LOGGER = LogUtils.getLogger();
+
+    public static void init() {
+        Blocks.init();
+        BlockEntityTypes.init();
+        EntityTypes.init();
+        Items.init();
+        DataComponents.init();
+        CriteriaTriggers.init();
+        ItemSubPredicates.init();
+        MenuTypes.init();
+        RecipeSerializers.init();
+        SoundEvents.init();
+        ArgumentTypes.init();
+    }
+
+    /**
+     * Creates resource location in the mod namespace with the given filePath.
+     */
+    public static Identifier resource(String path) {
+        return Identifier.fromNamespaceAndPath(ID, path);
+    }
+
+    public static class Blocks {
+        static void init() {
+        }
+    }
+
+    public static class BlockEntityTypes {
+        static void init() {
+        }
+    }
+
+    public static class Items {
+        public static final Supplier<InstantCameraItem> INSTANT_CAMERA = Register.item("instant_camera",
+                () -> new InstantCameraItem(new Item.Properties()
+                        .setId(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, ExposurePolaroid.resource("instant_camera")))
+                        .stacksTo(1)
+                        .component(Exposure.DataComponents.CAMERA_ACTIVE, false)));
+
+        public static final Supplier<InstantSlideItem> INSTANT_COLOR_SLIDE = Register.item("instant_color_slide",
+                () -> new InstantSlideItem(ExposureType.COLOR, new Item.Properties()
+                        .setId(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, ExposurePolaroid.resource("instant_color_slide")))
+                        .component(Exposure.DataComponents.FILM_STYLE,
+                                FilmStyle.create()
+                                        .withContrast(0.2f)
+                                        .withLevels(new Levels(0, 135, 255, 25, 255))
+                                        .withHSB(new HSB(0f, 0.05f, 0.05f))
+                                        .withColorBalance(new ColorBalance(0.03f, 0.01f, -0.01f)))));
+        public static final Supplier<InstantSlideItem> INSTANT_BLACK_AND_WHITE_SLIDE = Register.item("instant_black_and_white_slide",
+                () -> new InstantSlideItem(ExposureType.BLACK_AND_WHITE, new Item.Properties()
+                        .setId(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, ExposurePolaroid.resource("instant_black_and_white_slide")))
+                        .component(Exposure.DataComponents.FILM_STYLE,
+                                FilmStyle.create()
+                                        .withContrast(0.2f)
+                                        .withLevels(new Levels(0, 135, 255, 25, 255))
+                                        .withHSB(new HSB(0f, 0.05f, 0.05f))
+                                        .withColorBalance(new ColorBalance(0.03f, 0.01f, -0.01f)))));
+
+        public static final Supplier<InstantSlideItem> HIGH_SENSITIVITY_INSTANT_COLOR_SLIDE = Register.item("high_sensitivity_instant_color_slide",
+                () -> new InstantSlideItem(ExposureType.COLOR, new Item.Properties()
+                        .setId(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, ExposurePolaroid.resource("high_sensitivity_instant_color_slide")))
+                        .component(Exposure.DataComponents.FILM_STYLE,
+                                FilmStyle.create()
+                                        .withSensitivity(2f)
+                                        .withContrast(0.2f)
+                                        .withLevels(new Levels(0, 135, 255, 25, 255))
+                                        .withHSB(new HSB(0f, 0.05f, 0.05f))
+                                        .withColorBalance(new ColorBalance(0.03f, 0.01f, -0.01f))
+                                        .withNoise(0.05f))));
+        public static final Supplier<InstantSlideItem> HIGH_SENSITIVITY_INSTANT_BLACK_AND_WHITE_SLIDE = Register.item("high_sensitivity_instant_black_and_white_slide",
+                () -> new InstantSlideItem(ExposureType.BLACK_AND_WHITE, new Item.Properties()
+                        .setId(ResourceKey.create(net.minecraft.core.registries.Registries.ITEM, ExposurePolaroid.resource("high_sensitivity_instant_black_and_white_slide")))
+                        .component(Exposure.DataComponents.FILM_STYLE,
+                                FilmStyle.create()
+                                        .withSensitivity(2f)
+                                        .withContrast(0.2f)
+                                        .withLevels(new Levels(0, 135, 255, 25, 255))
+                                        .withHSB(new HSB(0f, 0.05f, 0.05f))
+                                        .withColorBalance(new ColorBalance(0.03f, 0.01f, -0.01f))
+                                        .withNoise(0.05f))));
+
+        static void init() {
+        }
+    }
+
+    public static class DataComponents {
+        static void init() {
+        }
+    }
+
+    public static class EntityTypes {
+        static void init() {
+        }
+    }
+
+    public static class MenuTypes {
+        static void init() {
+        }
+    }
+
+    public static class RecipeSerializers {
+        static void init() {
+        }
+    }
+
+    public static class SoundEvents {
+        public static final Supplier<SoundEvent> INSTANT_CAMERA_VIEWFINDER_OPEN = register("item", "instant_camera.viewfinder_open");
+        public static final Supplier<SoundEvent> INSTANT_CAMERA_VIEWFINDER_CLOSE = register("item", "instant_camera.viewfinder_close");
+        public static final Supplier<SoundEvent> INSTANT_CAMERA_RELEASE = register("item", "instant_camera.release");
+        public static final Supplier<SoundEvent> INSTANT_CAMERA_SLIDE_INSERT = register("item", "instant_camera.slide_insert");
+        public static final Supplier<SoundEvent> INSTANT_CAMERA_SLIDE_REMOVE = register("item", "instant_camera.slide_remove");
+
+        private static Supplier<SoundEvent> register(String category, String key) {
+            Preconditions.checkState(category != null && !category.isEmpty(), "'category' should not be empty.");
+            Preconditions.checkState(key != null && !key.isEmpty(), "'key' should not be empty.");
+            String path = category + "." + key;
+            return Register.soundEvent(path, () -> SoundEvent.createVariableRangeEvent(ExposurePolaroid.resource(path)));
+        }
+
+        static void init() {
+        }
+    }
+
+    public static class Stats {
+        public static final Map<Identifier, StatFormatter> STATS = new HashMap<>();
+
+        @SuppressWarnings("SameParameterValue")
+        private static Identifier register(Identifier location, StatFormatter formatter) {
+            STATS.put(location, formatter);
+            return location;
+        }
+
+        public static void register() {
+            STATS.forEach((location, formatter) -> {
+                net.minecraft.core.Registry.register(BuiltInRegistries.CUSTOM_STAT, location, location);
+                net.minecraft.stats.Stats.CUSTOM.get(location, formatter);
+            });
+        }
+    }
+
+    public static class CriteriaTriggers {
+        public static void init() {
+        }
+    }
+
+    public static class ItemSubPredicates {
+        public static void init() {
+        }
+    }
+
+    public static class LootTables {
+    }
+
+    public static class Tags {
+        public static class Items {
+        }
+
+        public static class Blocks {
+        }
+    }
+
+    public static class ArgumentTypes {
+        public static void init() {
+        }
+    }
+
+    public static class Registries {
+    }
+}
